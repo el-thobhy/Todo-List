@@ -82,4 +82,11 @@ class AddSubTaskAdapter: RecyclerView.Adapter<AddSubTaskAdapter.ViewHolder>() {
         listAddSubTask.add(subTask)
         notifyItemInserted(listAddSubTask.size - 1)
     }
+
+    fun getData(): List<SubTask>? {
+        return if(listAddSubTask.size>0){
+            listAddSubTask
+        }else
+            null
+    }
 }
