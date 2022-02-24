@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_task_complete.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_sub_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_task.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layout_empty_complete_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_empty_task.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>

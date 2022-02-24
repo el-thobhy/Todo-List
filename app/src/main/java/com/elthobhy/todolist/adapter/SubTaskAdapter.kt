@@ -10,7 +10,7 @@ import com.elthobhy.todolist.model.SubTask
 
 class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val itemBinding = ItemSubTaskBinding.bind(itemView)
+        private val itemBinding = ItemSubTaskBinding.bind(view)
         fun bind(subTask: SubTask) {
             itemBinding.tvTitleSubTask.text = subTask.title
 

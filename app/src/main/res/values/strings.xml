@@ -7,4 +7,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_task">My Task</string>
+    <string name="tell_me_what_you_want_to_do">Tell me what you want to do?</string>
+    <string name="please_complete_your_task">Please complete your task</string>
+    <string name="keep_the_spirit_to_complete_your_task">Keep the spirit to complete your task</string>
+    <string name="my_complete_task">My Complete Task</string>
 </resources>
