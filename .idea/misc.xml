@@ -3,11 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/bg_card_task.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_date_task.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bottom_navigation_colored.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_done_task_balck_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_task_complete.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_sub_task.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_empty_task.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1" />
       </map>
