@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elthobhy.todolist.R
 import com.elthobhy.todolist.databinding.ItemTaskBinding
-import com.elthobhy.todolist.model.SubTask
 import com.elthobhy.todolist.model.Task
 
 class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
@@ -15,10 +14,10 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
         private val itemBinding = ItemTaskBinding.bind(view)
         fun bind(task: Task) {
             itemBinding.tvTitleTask.text = task.mainTask?.title
-            Log.e("subtask", "bind: ${task.subTask}", )
-            if(task.mainTask?.date !=null && task.mainTask.date!!.isNotEmpty()){
+            Log.e("subtask", "bind: ${task.subTask}")
+            if(task.mainTask?.date !=null && task.mainTask!!.date!!.isNotEmpty()){
                 showDateTask()
-                itemBinding.tvDateTask.text = task.mainTask.date
+                itemBinding.tvDateTask.text = task.mainTask!!.date
             }else{
                 hideDateTask()
             }
@@ -26,7 +25,7 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
             if(task.subTask != null){
                 showSubTasks()
                 val subTaskAdapter = SubTaskAdapter()
-                subTaskAdapter.setData(task.subTask)
+                subTaskAdapter.setData(task.subTask!!)
 
                 itemBinding.rvSubTask.adapter = subTaskAdapter
 
@@ -36,10 +35,10 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
             itemBinding.btnDoneTask.setOnClickListener {
                 if(task.mainTask?.isComplete!!){
                     inCompleteTask()
-                    task.mainTask.isComplete = false
+                    task.mainTask!!.isComplete = false
                 }else{
                     completeTask()
-                    task.mainTask.isComplete = true
+                    task.mainTask!!.isComplete = true
                 }
             }
         }

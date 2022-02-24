@@ -8,12 +8,16 @@ import android.view.ViewGroup
 import com.elthobhy.todolist.R
 import com.elthobhy.todolist.adapter.TaskAdapter
 import com.elthobhy.todolist.databinding.FragmentHomeBinding
+import com.elthobhy.todolist.db.DbSubTaskHelper
+import com.elthobhy.todolist.db.DbTaskHelper
 import com.elthobhy.todolist.repository.TaskRepository
 
 class HomeFragment : Fragment() {
 
     private var _binding : FragmentHomeBinding? = null
     private val binding get() =_binding
+    private lateinit var dbTaskHelper: DbTaskHelper
+    private lateinit var dbSubTaskHelper: DbSubTaskHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,17 +30,30 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val tasks = TaskRepository.getDataTask(context)
+        setup()
+    }
 
+    override fun onResume() {
+        super.onResume()
+        getDataTask()
+    }
+
+    private fun getDataTask() {
+        val tasks = TaskRepository.getDataTaskFromDatabase(dbTaskHelper,dbSubTaskHelper)
         if(tasks != null){
             showTasks()
             val taskAdapter = TaskAdapter()
-            tasks.tasks?.let { taskAdapter.setData(it) }
+            taskAdapter.setData(tasks)
 
             binding?.rvTask?.adapter = taskAdapter
         }else{
             hideTasks()
         }
+    }
+
+    private fun setup() {
+        dbTaskHelper = DbTaskHelper.getInstance(context)
+        dbSubTaskHelper = DbSubTaskHelper.getInstance(context)
     }
 
     private fun hideTasks() {
