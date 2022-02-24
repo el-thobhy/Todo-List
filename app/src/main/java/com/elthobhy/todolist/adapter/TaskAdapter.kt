@@ -1,6 +1,5 @@
 package com.elthobhy.todolist.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +11,9 @@ import com.elthobhy.todolist.model.Task
 class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val itemBinding = ItemTaskBinding.bind(view)
-        fun bind(task: Task) {
+        fun bind(task: Task, listener: (Task) -> Unit) {
             itemBinding.tvTitleTask.text = task.mainTask?.title
-            Log.e("subtask", "bind: ${task.subTask}")
+            val subTaskAdapter = SubTaskAdapter()
             if(task.mainTask?.date !=null && task.mainTask!!.date!!.isNotEmpty()){
                 showDateTask()
                 itemBinding.tvDateTask.text = task.mainTask!!.date
@@ -24,7 +23,6 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
             if(task.subTask != null){
                 showSubTasks()
-                val subTaskAdapter = SubTaskAdapter()
                 subTaskAdapter.setData(task.subTask!!)
 
                 itemBinding.rvSubTask.adapter = subTaskAdapter
@@ -40,6 +38,14 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
                     completeTask()
                     task.mainTask!!.isComplete = true
                 }
+            }
+
+            itemView.setOnClickListener {
+                listener(task)
+            }
+
+            subTaskAdapter.onClick{
+                listener(task)
             }
         }
 
@@ -72,11 +78,12 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     }
 
     private lateinit var tasks: List<Task>
+    private lateinit var listener: (Task) ->Unit
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder =
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(tasks[position])
+        holder.bind(tasks[position], listener)
     }
 
     override fun getItemCount(): Int = tasks.size
@@ -84,5 +91,9 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     fun setData(tasks: List<Task>){
         this.tasks = tasks
         notifyDataSetChanged()
+    }
+
+    fun onCLick(listener: (Task) -> Unit){
+        this.listener = listener
     }
 }
