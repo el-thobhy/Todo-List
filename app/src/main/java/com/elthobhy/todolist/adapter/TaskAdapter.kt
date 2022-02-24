@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elthobhy.todolist.R
 import com.elthobhy.todolist.databinding.ItemTaskBinding
+import com.elthobhy.todolist.model.SubTask
 import com.elthobhy.todolist.model.Task
 
 class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
@@ -77,4 +78,9 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int = tasks.size
+
+    fun setData(subTasks: List<Task>){
+        this.tasks = subTasks
+        notifyDataSetChanged()
+    }
 }

@@ -45,7 +45,8 @@ class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = subTask.size
 
-    fun setData(subTask: List<SubTask>) {
-       this.subTask = subTask
+    fun setData(subTasks: List<SubTask>){
+        this.subTask = subTasks
+        notifyDataSetChanged()
     }
 }
