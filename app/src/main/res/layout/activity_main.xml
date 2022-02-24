@@ -18,8 +18,8 @@
         android:layout_height="?attr/actionBarSize"
         app:menu="@menu/main_menu"
         android:background="@android:color/white"
-        app:itemIconTint="@drawable/bottom_navigation_colored"
-        app:itemTextColor="@drawable/bottom_navigation_colored"
+        app:itemTextAppearanceActive="@color/secondaryColorPrimary"
+        app:itemTextAppearanceInactive="@android:color/darker_gray"
         app:layout_constraintBottom_toBottomOf="parent"/>
     <ImageButton
         android:id="@+id/btnAddTask"
@@ -28,12 +28,12 @@
         android:background="@android:color/transparent"
         android:src="@drawable/ic_baseline_add_circle_24"
         android:elevation="8dp"
-        app:tint="@color/secondaryColorPrimaryDark"
         app:layout_constraintStart_toStartOf="@id/btmNavMain"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:contentDescription="@string/image_add"/>
+        app:layout_constraintEnd_toEndOf="@id/btmNavMain"
+        app:layout_constraintTop_toTopOf="@id/btmNavMain"
+        app:layout_constraintBottom_toBottomOf="@id/btmNavMain"
+        android:contentDescription="@string/image_add"
+        app:tint="@color/secondaryColorPrimaryDark" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
