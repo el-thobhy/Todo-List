@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TodoList">
         <activity
+            android:name=".views.newtask.NewTaskActivity"
+            android:exported="true"/>
+        <activity
             android:name=".views.main.MainActivity"
             android:exported="false" />
         <activity

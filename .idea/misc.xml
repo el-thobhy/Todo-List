@@ -4,19 +4,24 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.14351851851851852" />
+        <entry key="app/src/main/res/drawable/bg_btn_add_date_task.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_card_task.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bg_date_task.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/bg_submit_task.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/bottom_navigation_colored.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_done_task_balck_24dp.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18" />
+        <entry key="app/src/main/res/layout/activity_new_task.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_task_complete.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/item_add_sub_task.xml" value="0.18" />
         <entry key="app/src/main/res/layout/item_sub_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/item_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_empty_complete_task.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_empty_task.xml" value="0.1" />
         <entry key="app/src/main/res/menu/main_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/new_task_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
