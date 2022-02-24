@@ -6,23 +6,31 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.elthobhy.todolist.R
 import com.elthobhy.todolist.databinding.ItemSubTaskBinding
+import com.elthobhy.todolist.db.DbSubTaskHelper
 import com.elthobhy.todolist.model.SubTask
 
-class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
+class SubTaskAdapter(private val dbSubTaskHelper: DbSubTaskHelper): RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val itemBinding = ItemSubTaskBinding.bind(view)
         fun bind(subTask: SubTask, listener: (View) -> Unit) {
             itemBinding.tvTitleSubTask.text = subTask.title
 
             itemBinding.btnDoneSubTask.setOnClickListener {
                 if(subTask.isComplete){
-                    inCompleteSubTask()
                     subTask.isComplete = false
+                    val result = dbSubTaskHelper.updateSubTask(subTask)
+                    if(result>0){
+                        inCompleteSubTask()
+                    }
                 }else{
-                    completeSubTask()
                     subTask.isComplete = true
+                    val result = dbSubTaskHelper.updateSubTask(subTask)
+                    if(result>0){
+                        completeSubTask()
+                    }
                 }
             }
+
             itemView.setOnClickListener {
                 listener(it)
             }
@@ -56,6 +64,5 @@ class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
 
     fun onClick(listener: (View) -> Unit) {
         this.listener = listener
-
     }
 }

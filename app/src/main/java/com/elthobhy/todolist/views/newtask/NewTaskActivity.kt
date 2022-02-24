@@ -45,7 +45,7 @@ class NewTaskActivity : AppCompatActivity() {
     private fun setup() {
         dbTaskHelper = DbTaskHelper.getInstance(this)
         dbSubTaskHelper = DbSubTaskHelper.getInstance(this)
-        addSubTaskAdapter = AddSubTaskAdapter()
+        addSubTaskAdapter = AddSubTaskAdapter(dbSubTaskHelper)
 
         getDataExtra()
     }
@@ -80,8 +80,8 @@ class NewTaskActivity : AppCompatActivity() {
         }
         binding?.btnAddDateTask?.setOnClickListener {
             DatePickerSet.showDatePicker(this,
-            DatePickerDialog.OnDateSetListener { _, year, month, day ->
-                val dateString = DatePickerSet.dateFormatSql(year, month, day)
+            DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
+                val dateString = DatePickerSet.dateFormatSql(year, month, dayOfMonth)
                 binding?.btnAddDateTask?.text = DatePickerSet.dateFromSqlToDateViewTask(dateString)
 
                 task?.mainTask?.date = dateString

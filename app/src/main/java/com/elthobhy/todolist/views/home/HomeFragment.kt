@@ -66,7 +66,7 @@ class HomeFragment : Fragment() {
     private fun setup() {
         dbTaskHelper = DbTaskHelper.getInstance(context)
         dbSubTaskHelper = DbSubTaskHelper.getInstance(context)
-        taskAdapter = TaskAdapter()
+        taskAdapter = TaskAdapter(dbTaskHelper, dbSubTaskHelper)
     }
 
     private fun hideTasks() {
