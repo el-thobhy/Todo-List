@@ -16,7 +16,7 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
         fun bind(task: Task) {
             itemBinding.tvTitleTask.text = task.mainTask?.title
             Log.e("subtask", "bind: ${task.subTask}", )
-            if(task.mainTask?.date !=null && task.mainTask.date.isNotEmpty()){
+            if(task.mainTask?.date !=null && task.mainTask.date!!.isNotEmpty()){
                 showDateTask()
                 itemBinding.tvDateTask.text = task.mainTask.date
             }else{
