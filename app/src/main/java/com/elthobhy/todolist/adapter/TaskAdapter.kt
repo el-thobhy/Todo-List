@@ -1,5 +1,6 @@
 package com.elthobhy.todolist.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,10 @@ import com.elthobhy.todolist.model.Task
 
 class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        private val itemBinding = ItemTaskBinding.bind(itemView)
+        private val itemBinding = ItemTaskBinding.bind(view)
         fun bind(task: Task) {
             itemBinding.tvTitleTask.text = task.mainTask?.title
+            Log.e("subtask", "bind: ${task.subTask}", )
             if(task.mainTask?.date !=null && task.mainTask.date.isNotEmpty()){
                 showDateTask()
                 itemBinding.tvDateTask.text = task.mainTask.date
@@ -27,13 +29,14 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
                 subTaskAdapter.setData(task.subTask)
 
                 itemBinding.rvSubTask.adapter = subTaskAdapter
+
             }else{
                 hideSubTasks()
             }
             itemBinding.btnDoneTask.setOnClickListener {
                 if(task.mainTask?.isComplete!!){
                     inCompleteTask()
-                    task.mainTask?.isComplete = false
+                    task.mainTask.isComplete = false
                 }else{
                     completeTask()
                     task.mainTask.isComplete = true
@@ -79,8 +82,8 @@ class TaskAdapter: RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = tasks.size
 
-    fun setData(subTasks: List<Task>){
-        this.tasks = subTasks
+    fun setData(tasks: List<Task>){
+        this.tasks = tasks
         notifyDataSetChanged()
     }
 }
