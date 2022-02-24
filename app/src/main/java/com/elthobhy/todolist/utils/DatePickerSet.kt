@@ -17,14 +17,14 @@ object DatePickerSet {
     }
 
     //
-    fun dateFormatSql(year: Int, month: Int, day: Int): String{
-        return "$year-$month-$day"
+    fun dateFormatSql(year: Int, month: Int, dayOfMonth: Int): String{
+        return "$year-$month-$dayOfMonth"
     }
 
     //format date from SQL to View
     fun dateFromSqlToDateViewTask(rawDate: String): String{
         var result = ""
-        val date = SimpleDateFormat("yy-MM-dd", Locale.getDefault()).parse(rawDate)
+        val date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).parse(rawDate)
         if(date != null){
             result = SimpleDateFormat("EEE, dd MM yyyy", Locale.getDefault()).format(date)
         }

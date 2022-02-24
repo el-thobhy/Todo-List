@@ -43,4 +43,26 @@ object TaskRepository {
         }
         return tasks
     }
+
+    fun getDataTaskCompleteFromDatabase(dbTaskHelper: DbTaskHelper, dbSubTaskHelper: DbSubTaskHelper): List<Task>?{
+        val tasks = mutableListOf<Task>()
+        val mainTask = dbTaskHelper.getAllTaskComplete()
+        tasks.clear()
+
+        if(mainTask != null){
+            for(mainTask: MainTask in mainTask){
+                val task = Task()
+                task.mainTask = mainTask
+
+                val subTask = dbSubTaskHelper.getAllSubTask(mainTask.id)
+                if(subTask != null && subTask.isNotEmpty()){
+                    task.subTask = subTask
+                }
+                tasks.add(task)
+            }
+        }else{
+            return null
+        }
+        return tasks
+    }
 }
