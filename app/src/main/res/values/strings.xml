@@ -11,4 +11,12 @@
     <string name="please_complete_your_task">Please complete your task</string>
     <string name="keep_the_spirit_to_complete_your_task">Keep the spirit to complete your task</string>
     <string name="my_complete_task">My Complete Task</string>
+
+    <string name="submit">Submit</string>
+    <string name="add_sub_task">Add Sub Task</string>
+    <string name="add_date">Add Date</string>
+    <string name="add_details">Add Details</string>
+    <string name="title">Title</string>
+    <string name="enter_title">Enter Title…</string>
+    <string name="remove_task">Remove Task</string>
 </resources>

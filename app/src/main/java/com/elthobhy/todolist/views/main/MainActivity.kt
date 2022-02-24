@@ -1,11 +1,13 @@
 package com.elthobhy.todolist.views.main
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.elthobhy.todolist.R
 import com.elthobhy.todolist.databinding.ActivityMainBinding
 import com.elthobhy.todolist.views.home.HomeFragment
+import com.elthobhy.todolist.views.newtask.NewTaskActivity
 import com.elthobhy.todolist.views.taskcomplete.TaskCompleteFragment
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding?.root)
 
         setupBottomNavigation()
+        onClick()
+    }
+
+    private fun onClick() {
+        binding?.btnAddTask?.setOnClickListener {
+            startActivity(Intent(this, NewTaskActivity::class.java))
+        }
     }
 
     private fun setupBottomNavigation() {
