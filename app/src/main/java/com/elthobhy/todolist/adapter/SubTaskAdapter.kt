@@ -11,7 +11,7 @@ import com.elthobhy.todolist.model.SubTask
 class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
     class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         private val itemBinding = ItemSubTaskBinding.bind(view)
-        fun bind(subTask: SubTask) {
+        fun bind(subTask: SubTask, listener: (View) -> Unit) {
             itemBinding.tvTitleSubTask.text = subTask.title
 
             itemBinding.btnDoneSubTask.setOnClickListener {
@@ -22,6 +22,9 @@ class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
                     completeSubTask()
                     subTask.isComplete = true
                 }
+            }
+            itemView.setOnClickListener {
+                listener(it)
             }
         }
 
@@ -39,8 +42,9 @@ class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
         ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_sub_task, parent, false))
 
     private lateinit var subTask: List<SubTask>
+    private lateinit var listener: (View) -> Unit
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(subTask[position])
+        holder.bind(subTask[position], listener)
     }
 
     override fun getItemCount(): Int = subTask.size
@@ -48,5 +52,10 @@ class SubTaskAdapter: RecyclerView.Adapter<SubTaskAdapter.ViewHolder>() {
     fun setData(subTasks: List<SubTask>){
         this.subTask = subTasks
         notifyDataSetChanged()
+    }
+
+    fun onClick(listener: (View) -> Unit) {
+        this.listener = listener
+
     }
 }

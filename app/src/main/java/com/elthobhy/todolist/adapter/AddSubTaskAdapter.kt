@@ -89,4 +89,7 @@ class AddSubTaskAdapter: RecyclerView.Adapter<AddSubTaskAdapter.ViewHolder>() {
         }else
             null
     }
+    fun setData(setTasks: List<SubTask>){
+        listAddSubTask = setTasks as MutableList<SubTask>
+    }
 }

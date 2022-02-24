@@ -45,15 +45,32 @@ class NewTaskActivity : AppCompatActivity() {
     private fun setup() {
         dbTaskHelper = DbTaskHelper.getInstance(this)
         dbSubTaskHelper = DbSubTaskHelper.getInstance(this)
+        addSubTaskAdapter = AddSubTaskAdapter()
 
         getDataExtra()
     }
 
     private fun getDataExtra() {
+        if(intent != null){
+            task = intent.getParcelableExtra(EXTRA_TASK)
+        }
         if(task != null){
-
+            isEdit = true
+            binding?.btnSubmitTask?.text = getString(R.string.update)
+            setupView(task)
         }else{
             task = Task(mainTask = MainTask())
+        }
+    }
+
+    private fun setupView(task: Task?) {
+        binding?.etTitleTask?.setText(task?.mainTask?.title)
+        binding?.etAddDetailsTask?.setText(task?.mainTask?.details)
+        val dateString = task?.mainTask?.date
+
+        if(dateString != null){
+            binding?.btnAddDateTask?.text = DatePickerSet.dateFromSqlToDateViewTask(dateString)
+            checkDateFilled(true)
         }
     }
 
@@ -105,6 +122,42 @@ class NewTaskActivity : AppCompatActivity() {
 
         if(isEdit){
             //ToDO EDIT
+            val result = dbTaskHelper.updateTask(task?.mainTask)
+            if(result>0){
+                if(dataSubTask != null && dataSubTask.isNotEmpty()){
+                    var isSuccess = false
+                    for(subTask: SubTask in dataSubTask){
+                        if(subTask.id != null){
+                            val resultSubTask = dbSubTaskHelper.updateSubTask(subTask)
+                            isSuccess = resultSubTask>0
+                        }else{
+                            subTask.idTask = task?.mainTask?.id
+                            val resultSubTask = dbSubTaskHelper.insert(subTask)
+                            isSuccess = resultSubTask>0
+                        }
+                    }
+                    if(isSuccess){
+                        val dialog = showSuccessDialog(getString(R.string.success_dialog))
+                        Handler().postDelayed({
+                              dialog.dismiss()
+                        }, 1200)
+                    }else{
+                        val dialog = showFailedDialog(getString(R.string.failed_dialog))
+                        Handler().postDelayed({
+                              dialog.dismiss()
+                        },1200)
+                    }
+                }
+                val dialog = showSuccessDialog(getString(R.string.success_dialog))
+                Handler().postDelayed({
+                    dialog.dismiss()
+                },1200)
+            }else{
+                val dialog = showFailedDialog(getString(R.string.failed_dialog))
+                Handler().postDelayed({
+                    dialog.dismiss()
+                },1200)
+            }
         }else{
             val result = dbTaskHelper.insert(task?.mainTask)
             if(result>0){
@@ -116,18 +169,18 @@ class NewTaskActivity : AppCompatActivity() {
                         isSuccess = resultSubTask>0
                     }
                     if(isSuccess){
-                        val dialog = showSuccessDialog("Success add data to DataBase")
+                        val dialog = showSuccessDialog(getString(R.string.success_dialog))
                         Handler().postDelayed({
                               dialog.dismiss()
                         }, 1200)
                     }else{
-                        val dialog = showFailedDialog("Failed add data to Database")
+                        val dialog = showFailedDialog(getString(R.string.failed_dialog))
                         Handler().postDelayed({
                             dialog.dismiss()
                         }, 1200)
                     }
                 }
-                val dialog = showSuccessDialog("Success add data to Database")
+                val dialog = showSuccessDialog(getString(R.string.success_dialog))
                 Handler().postDelayed({
                     dialog.dismiss()
                     finish()
@@ -156,7 +209,9 @@ class NewTaskActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.new_task_menu, menu)
+        if(isEdit){
+            menuInflater.inflate(R.menu.new_task_menu, menu)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -164,6 +219,26 @@ class NewTaskActivity : AppCompatActivity() {
         when(item.itemId){
             R.id.action_remove_task -> {
                 Toast.makeText(applicationContext,"Remove Task", Toast.LENGTH_SHORT).show()
+                AlertDialog.Builder(this)
+                    .setTitle("Delete")
+                    .setMessage("Apakah anda yakin ingin menghapus?")
+                    .setPositiveButton("Yes"){dialog,_->
+                        task?.mainTask?.id?.let {
+                            val result = dbTaskHelper.deleteTask(it)
+                            if(result >0){
+                                val dialogSuccer = showSuccessDialog("Dihapus")
+                                Handler().postDelayed({
+                                      dialogSuccer.dismiss()
+                                    dialog.dismiss()
+                                    finish()
+                                },1200)
+                            }
+                        }
+                    }
+                    .setNegativeButton("No"){dialog,_->
+                        dialog.dismiss()
+                    }
+                    .show()
             }
         }
         return super.onOptionsItemSelected(item)
@@ -182,7 +257,7 @@ class NewTaskActivity : AppCompatActivity() {
     }
 
     private fun setupAddSubTaskAdapter() {
-        addSubTaskAdapter = AddSubTaskAdapter()
+        task?.subTask?.let { addSubTaskAdapter.setData(it) }
         binding?.rvAddSubTask?.adapter = addSubTaskAdapter
     }
 
@@ -192,5 +267,9 @@ class NewTaskActivity : AppCompatActivity() {
         setSupportActionBar(binding?.tbNewTask)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = ""
+    }
+
+    companion object{
+        const val EXTRA_TASK = "extra_task"
     }
 }

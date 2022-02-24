@@ -5,6 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Task(
-    val mainTask: MainTask? = null,
-    val subTask: List<SubTask>? = null
+    var mainTask: MainTask? = null,
+    var subTask: List<SubTask>? = null
 ): Parcelable
